@@ -1,4 +1,5 @@
 import csv
+
 import datetime as dt  # MAGIC!
 
 #!) Handle error checking using try and except
@@ -16,10 +17,9 @@ print(type(header_row))
 # Looking at index value as well as column header; what index value is associte with what record
 # The Enumerate() function returns both index of each item adn the value of each item as you loop through a list
 
-"""
+
 for index, header in enumerate(header_row):
     print("Index:", index, "Column Header:", header)
-"""
 
 
 highs = []
@@ -38,11 +38,12 @@ for row in csv_file:
     converted_date = dt.datetime.strptime(row[2], "%Y-%m-%d")
     dates.append(converted_date)
     lows.append(int(row[5]))
-"""
+
 
 # Oh no! error with a literal in the csv file.
 # Try and except allows us to re-route the code if we have bad information in the file.
 # So here's what we do:
+"""
 
 # VERSION 2
 for row in csv_file:
@@ -55,10 +56,11 @@ for row in csv_file:
         print(
             f"Missing data for {converted_date}"
         )  # "f" lets you write print statement w/out + and , and whatever
+        # Literal string interpretation
 
     else:
-        highs.append(int(row[4]))
-        lows.append(int(row[5]))
+        highs.append(high)
+        lows.append(low)
         dates.append(converted_date)
 
 
@@ -81,6 +83,6 @@ plt.ylabel("Temperature (F)", fontsize=12)
 plt.tick_params(axis="both", labelsize=12)
 
 fig.autofmt_xdate()
-# Draws labels daigonnaly to prevent overlapping
+# Draws labels diagonally to prevent overlapping
 
 plt.show()
