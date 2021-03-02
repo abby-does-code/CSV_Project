@@ -11,8 +11,8 @@ header_row = next(csv_file)
 print(type(header_row))
 
 
-lows_index_no = header_row.index("TMIN")
-highs_index_no = header_row.index("TMAX")
+lows_index_no = int(header_row.index("TMIN"))
+highs_index_no = int(header_row.index("TMAX"))
 dates_index_no = header_row.index("DATE")
 
 
@@ -23,25 +23,26 @@ dates = []
 highs = []
 lows = []
 
+
 for row in csv_file:
-    highs.append(int(row([header_row.index("TMAX")])))
+    highs.append(row[header_row.index("TMAX")])
     converted_date = dt.datetime.strptime(row[header_row.index("DATE")], "%Y-%m-%d")
     dates.append(converted_date)
     lows.append(row[header_row.index("TMIN")])
 
-print(lows[:10])
-# print(highs[:10])
 
+print(highs[:10])
+"""
 dates2 = []
 highs2 = []
 lows2 = []
-"""
+
 for row in csv_file2:
     highs2.append(row[header_row2.index("TMAX")])
     converted_date = dt.datetime.strptime(row[header_row2.index("DATE")], "%Y-%m-%d")
     dates2.append(converted_date)
     lows2.append(row[header_row2.index("TMIN")])
-
+"""
 
 import matplotlib.pyplot as plt
 
@@ -62,7 +63,7 @@ plt.tick_params(axis="both", labelsize=12)
 
 plt.show()
 
-
+"""
 fig = plt.figure()
 
 fig, a = plt.subplots(2)
