@@ -24,13 +24,13 @@ highs = []
 lows = []
 
 for row in csv_file:
-    highs.append(row[header_row.index("TMAX")])
+    highs.append(int(row([header_row.index("TMAX")])))
     converted_date = dt.datetime.strptime(row[header_row.index("DATE")], "%Y-%m-%d")
     dates.append(converted_date)
     lows.append(row[header_row.index("TMIN")])
 
 print(lows[:10])
-print(highs[:10])
+# print(highs[:10])
 
 dates2 = []
 highs2 = []
@@ -41,7 +41,7 @@ for row in csv_file2:
     converted_date = dt.datetime.strptime(row[header_row2.index("DATE")], "%Y-%m-%d")
     dates2.append(converted_date)
     lows2.append(row[header_row2.index("TMIN")])
-"""
+
 
 import matplotlib.pyplot as plt
 
@@ -62,7 +62,6 @@ plt.tick_params(axis="both", labelsize=12)
 
 plt.show()
 
-"""
 
 fig = plt.figure()
 
