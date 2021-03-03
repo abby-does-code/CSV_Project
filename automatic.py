@@ -8,28 +8,32 @@ open_file = open("death_valley_2018_simple.csv", "r")
 csv_file = csv.reader(open_file, delimiter=",")
 
 header_row = next(csv_file)
-print(type(header_row))
-
-
-lows_index_no = int(header_row.index("TMIN"))
-highs_index_no = int(header_row.index("TMAX"))
-dates_index_no = header_row.index("DATE")
-
-
-## list.index('thing')
 
 
 dates = []
 highs = []
 lows = []
+station_name = []
+
+for value in enumerate(header_row):
+    name = header_row.value("NAME")
+    station_name.append(name)
+    print(station_name)
 
 
 for row in csv_file:
-    highs.append(row[header_row.index("TMAX")])
-    converted_date = dt.datetime.strptime(row[header_row.index("DATE")], "%Y-%m-%d")
-    dates.append(converted_date)
-    lows.append(row[header_row.index("TMIN")])
-
+    try:
+        high = int(row[header_row.index("TMAX")])
+        low = int(row[header_row.index("TMIN")])
+        date = dt.datetime.strptime(row[header_row.index("DATE")], "%Y-%m-%d")
+        name = str(row[header_row.index("NAME")])
+    except ValueError:
+        print(f"Missing data for {row[0]}")
+    else:
+        highs.append(high)
+        lows.append(low)
+        dates.append(date)
+        station_name.append(name)
 
 print(highs[:10])
 """
@@ -46,19 +50,19 @@ for row in csv_file2:
 
 import matplotlib.pyplot as plt
 
-# fig = plt.figure()
+fig = plt.figure()
 
 
 plt.plot(dates, highs, c="red")  # plt is the actual graph object
 plt.plot(dates, lows, c="blue")
 
-plt.title("Daily high and low temperatures -  2018", fontsize=16)
+plt.title(header_row.header("NAME"), fontsize=16)
 plt.xlabel("", fontsize=12)
 plt.ylabel("Temperature (F)", fontsize=12)
 
 plt.tick_params(axis="both", labelsize=12)
 
-# fig.autofmt_xdate()
+fig.autofmt_xdate()
 # Draws labels daigonnaly to prevent overlapping
 
 plt.show()
